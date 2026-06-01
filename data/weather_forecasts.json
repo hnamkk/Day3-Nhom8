@@ -1,0 +1,17 @@
+{
+  "Đà Nẵng": [
+    {"date": "2026-06-02", "temp_c": 32.0, "description": "nắng đẹp"},
+    {"date": "2026-06-03", "temp_c": 31.0, "description": "trời nhiều nắng"},
+    {"date": "2026-06-04", "temp_c": 29.5, "description": "mây thay đổi"}
+  ],
+  "Hà Nội": [
+    {"date": "2026-06-02", "temp_c": 28.5, "description": "trời âm u"},
+    {"date": "2026-06-03", "temp_c": 30.0, "description": "nắng nhẹ"},
+    {"date": "2026-06-04", "temp_c": 27.0, "description": "mưa rào"}
+  ],
+  "Hội An": [
+    {"date": "2026-06-02", "temp_c": 30.0, "description": "nắng ấm"},
+    {"date": "2026-06-03", "temp_c": 29.0, "description": "trời dễ chịu"},
+    {"date": "2026-06-04", "temp_c": 28.0, "description": "trời mát"}
+  ]
+}
