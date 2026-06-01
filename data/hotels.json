@@ -1,0 +1,150 @@
+{
+  "hotels": {
+    "da_nang": [
+      {
+        "name": "Mường Thanh Luxury Đà Nẵng",
+        "stars": 5,
+        "price_per_night": 1800000,
+        "location": "Trung tâm thành phố",
+        "amenities": ["Hồ bơi", "Spa", "Nhà hàng", "Phòng gym", "View biển"],
+        "rating": 4.7,
+        "address": "270 Võ Nguyên Giáp, Mỹ An, Ngũ Hành Sơn"
+      },
+      {
+        "name": "Fusion Maia Đà Nẵng",
+        "stars": 5,
+        "price_per_night": 3500000,
+        "location": "Bãi biển Mỹ An",
+        "amenities": ["Hồ bơi riêng", "Spa all-inclusive", "Nhà hàng cao cấp", "Bãi biển riêng"],
+        "rating": 4.9,
+        "address": "Zone B, Khue My Ward, Ngu Hanh Son"
+      },
+      {
+        "name": "Brilliant Hotel Đà Nẵng",
+        "stars": 4,
+        "price_per_night": 950000,
+        "location": "Trung tâm, gần bờ sông Hàn",
+        "amenities": ["Hồ bơi", "Nhà hàng", "Bar tầng thượng", "Phòng gym"],
+        "rating": 4.3,
+        "address": "162 Bach Dang, Hai Chau"
+      },
+      {
+        "name": "Ipublic Đà Nẵng Hotel",
+        "stars": 3,
+        "price_per_night": 450000,
+        "location": "Trung tâm Đà Nẵng",
+        "amenities": ["WiFi miễn phí", "Điều hòa", "TV màn hình phẳng"],
+        "rating": 3.9,
+        "address": "15 Phan Chu Trinh, Hai Chau"
+      },
+      {
+        "name": "Happy Hostel Đà Nẵng",
+        "stars": 2,
+        "price_per_night": 180000,
+        "location": "Gần bãi biển Mỹ Khê",
+        "amenities": ["WiFi miễn phí", "Bếp dùng chung", "Khu vực nghỉ ngơi chung"],
+        "rating": 4.1,
+        "address": "20 An Thương 4, Mỹ Khê"
+      }
+    ],
+    "ha_noi": [
+      {
+        "name": "Sofitel Legend Metropole Hà Nội",
+        "stars": 5,
+        "price_per_night": 4200000,
+        "location": "Hoàn Kiếm, trung tâm lịch sử",
+        "amenities": ["Hồ bơi", "Spa", "2 nhà hàng", "Bar", "Phòng gym"],
+        "rating": 4.9,
+        "address": "15 Ngô Quyền, Hoàn Kiếm"
+      },
+      {
+        "name": "Lotte Hotel Hà Nội",
+        "stars": 5,
+        "price_per_night": 2800000,
+        "location": "Ba Đình, gần lăng Bác",
+        "amenities": ["Hồ bơi", "Spa", "Nhà hàng buffet", "Phòng gym", "View tháp"],
+        "rating": 4.7,
+        "address": "54 Liễu Giai, Ba Đình"
+      },
+      {
+        "name": "Hanoi La Siesta Hotel & Spa",
+        "stars": 4,
+        "price_per_night": 1100000,
+        "location": "Phố cổ Hà Nội",
+        "amenities": ["Hồ bơi tầng thượng", "Spa", "Nhà hàng", "Bar"],
+        "rating": 4.5,
+        "address": "94 Mã Mây, Hoàn Kiếm"
+      },
+      {
+        "name": "Hanoi Old Quarter Hotel",
+        "stars": 3,
+        "price_per_night": 550000,
+        "location": "Phố cổ, gần Hồ Hoàn Kiếm",
+        "amenities": ["WiFi miễn phí", "Điều hòa", "Bữa sáng included"],
+        "rating": 4.0,
+        "address": "25 Hàng Bạc, Hoàn Kiếm"
+      },
+      {
+        "name": "Hanoi Backpackers Hostel",
+        "stars": 2,
+        "price_per_night": 200000,
+        "location": "Phố Tây, Hoàn Kiếm",
+        "amenities": ["WiFi miễn phí", "Bếp dùng chung", "Tour booking"],
+        "rating": 4.2,
+        "address": "48 Ngõ Huyện, Hoàn Kiếm"
+      }
+    ],
+    "hoi_an": [
+      {
+        "name": "Four Seasons The Nam Hai",
+        "stars": 5,
+        "price_per_night": 8500000,
+        "location": "Bãi biển Hà My, ngoại ô Hội An",
+        "amenities": ["3 hồ bơi", "Spa cao cấp", "Bãi biển riêng", "3 nhà hàng", "Butler service"],
+        "rating": 5.0,
+        "address": "Hamlet 1, Dien Duong Village, Dien Ban"
+      },
+      {
+        "name": "Anantara Hội An Resort",
+        "stars": 5,
+        "price_per_night": 3800000,
+        "location": "Bờ sông Thu Bồn, trung tâm Hội An",
+        "amenities": ["Hồ bơi", "Spa", "Nhà hàng", "Kayak", "Xe đạp miễn phí"],
+        "rating": 4.8,
+        "address": "1 Phạm Hồng Thái, Cẩm Châu"
+      },
+      {
+        "name": "Hội An Historic Hotel",
+        "stars": 4,
+        "price_per_night": 1200000,
+        "location": "Trung tâm phố cổ Hội An",
+        "amenities": ["Hồ bơi", "Nhà hàng", "Xe đạp miễn phí", "Tour phố cổ"],
+        "rating": 4.4,
+        "address": "10 Trần Hưng Đạo, Minh An"
+      },
+      {
+        "name": "Vinh Hung Riverside Resort",
+        "stars": 3,
+        "price_per_night": 650000,
+        "location": "Ven sông, gần phố cổ",
+        "amenities": ["Hồ bơi", "WiFi miễn phí", "Xe đạp miễn phí", "Bữa sáng"],
+        "rating": 4.1,
+        "address": "4 Nguyen Phuc Chu, Hoi An"
+      },
+      {
+        "name": "Hội An Eco Lodge & Spa",
+        "stars": 3,
+        "price_per_night": 380000,
+        "location": "Làng quê ngoại ô Hội An",
+        "amenities": ["Vườn rau hữu cơ", "WiFi miễn phí", "Xe đạp miễn phí", "Cooking class"],
+        "rating": 4.3,
+        "address": "Cam Ha Village, Cam Chau"
+      }
+    ]
+  },
+  "metadata": {
+    "currency": "VND",
+    "last_updated": "2025-06-01",
+    "note": "Giá khách sạn tính theo đêm (VND), có thể thay đổi theo mùa"
+  }
+}
