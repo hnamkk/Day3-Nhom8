@@ -14,57 +14,28 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ── Import providers ─────────────────────────────────────────────────────────
-DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", "google").lower()
+from src.core.provider_factory import create_provider
 
-if DEFAULT_PROVIDER == "google":
-    from src.core.gemini_provider import GeminiProvider
-    llm = GeminiProvider(
-        model_name=os.getenv("DEFAULT_MODEL", "gemini-1.5-flash"),
-        api_key=os.getenv("GEMINI_API_KEY"),
-    )
-elif DEFAULT_PROVIDER == "openai":
-    from src.core.openai_provider import OpenAIProvider
-    llm = OpenAIProvider(
-        model_name=os.getenv("DEFAULT_MODEL", "gpt-4o-mini"),
-        api_key=os.getenv("OPENAI_API_KEY"),
-    )
-else:
-    print(f"[ERROR] Provider '{DEFAULT_PROVIDER}' không được hỗ trợ. Dùng 'google' hoặc 'openai'.")
+DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", "google").lower()
+try:
+    llm = create_provider(DEFAULT_PROVIDER)
+except Exception as exc:
+    print(f"[ERROR] Không khởi tạo được provider '{DEFAULT_PROVIDER}': {exc}")
     sys.exit(1)
 
 # ── Import Agent ─────────────────────────────────────────────────────────────
 from src.agent.agent import ReActAgent
+from src.agent.agent_v2 import ReActAgentV2
+from src.tools.registry import TRAVEL_TOOLS
 
 # ── Khai báo danh sách Tools cho Agent ──────────────────────────────────────
-TOOLS = [
-    {
-        "name": "get_weather_forecast",
-        "description": "Lấy dự báo thời tiết 3 ngày tới cho một thành phố. Args: city (str)",
-    },
-    {
-        "name": "search_destinations",
-        "description": (
-            "Tra cứu địa điểm du lịch theo thành phố và phong cách. "
-            "Args: city (str), travel_style (str) – ví dụ: 'nghỉ dưỡng', 'ẩm thực', 'khám phá'"
-        ),
-    },
-    {
-        "name": "check_hotel_prices",
-        "description": (
-            "Tìm khách sạn phù hợp ngân sách mỗi đêm (VND). "
-            "Args: city (str), budget_per_night (int)"
-        ),
-    },
-    {
-        "name": "calculate_budget",
-        "description": (
-            "Tính toán và kiểm tra tổng ngân sách chuyến đi. "
-            "Args: hotel_cost (int), days (int), flight_cost (int), food_daily (int), total_budget (int)"
-        ),
-    },
-]
+TOOLS = TRAVEL_TOOLS
 
-agent = ReActAgent(llm=llm, tools=TOOLS, max_steps=8)
+AGENT_VERSION = os.getenv("AGENT_VERSION", "v1").lower()
+if AGENT_VERSION == "v2":
+    agent = ReActAgentV2(llm=llm, tools=TOOLS, max_steps=8)
+else:
+    agent = ReActAgent(llm=llm, tools=TOOLS, max_steps=8)
 
 # ── Demo queries (sinh log cho TV4) ─────────────────────────────────────────
 DEMO_QUERIES = [
@@ -80,6 +51,7 @@ def run_interactive():
     print("\n" + "=" * 60)
     print("  Travel Planner ReAct Agent")
     print("  Provider:", DEFAULT_PROVIDER.upper(), "-", llm.model_name)
+    print("  Agent:", AGENT_VERSION.upper())
     print("  Go 'exit' hoac 'quit' de thoat")
     print("=" * 60 + "\n")
 

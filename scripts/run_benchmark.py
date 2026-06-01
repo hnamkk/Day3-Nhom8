@@ -2,9 +2,10 @@ import time
 from typing import Dict
 from src.chatbot.chatbot import Chatbot
 from src.agent.agent import ReActAgent
+from src.agent.agent_v2 import ReActAgentV2
 from src.telemetry.metrics import PerformanceTracker
 from src.telemetry.logger import logger
-import src.tools as tools_module
+from src.tools.registry import TRAVEL_TOOLS
 
 
 def _estimate_tokens(text: str) -> int:
@@ -48,7 +49,8 @@ def run_benchmark(prompts):
 
     # Local trackers for separation
     tracker_chat = PerformanceTracker()
-    tracker_agent = PerformanceTracker()
+    tracker_agent_v1 = PerformanceTracker()
+    tracker_agent_v2 = PerformanceTracker()
 
     # Run Chatbot benchmark
     print("Running Chatbot baseline...")
@@ -68,30 +70,37 @@ def run_benchmark(prompts):
         tracker_chat.track_request(provider_name, getattr(bot.provider, "model_name", "unknown"), usage, elapsed)
         logger.log_event("BENCHMARK_CHATBOT", {"prompt": p, "elapsed_ms": elapsed})
 
-    # Prepare simple tools metadata for agent
-    tools = []
-    for name in getattr(tools_module, "__all__", []):
-        tools.append({"name": name, "description": f"Tool: {name}"})
+    tools = TRAVEL_TOOLS
 
-    # Wrap provider so agent's LLM calls are tracked separately
-    wrapped_llm = LLMWrapper(bot.provider, tracker_agent)
-    agent = ReActAgent(llm=wrapped_llm, tools=tools, max_steps=5)
-
-    print("Running ReAct Agent benchmark...")
+    print("Running ReAct Agent v1 benchmark...")
+    wrapped_llm_v1 = LLMWrapper(bot.provider, tracker_agent_v1)
+    agent_v1 = ReActAgent(llm=wrapped_llm_v1, tools=tools, max_steps=5)
     for p in prompts:
         start = time.time()
-        _ = agent.run(p)
+        _ = agent_v1.run(p)
         elapsed = int((time.time() - start) * 1000)
-        logger.log_event("BENCHMARK_AGENT", {"prompt": p, "elapsed_ms": elapsed})
+        logger.log_event("BENCHMARK_AGENT_V1", {"prompt": p, "elapsed_ms": elapsed})
+
+    print("Running ReAct Agent v2 benchmark...")
+    wrapped_llm_v2 = LLMWrapper(bot.provider, tracker_agent_v2)
+    agent_v2 = ReActAgentV2(llm=wrapped_llm_v2, tools=tools, max_steps=5)
+    for p in prompts:
+        start = time.time()
+        _ = agent_v2.run(p)
+        elapsed = int((time.time() - start) * 1000)
+        logger.log_event("BENCHMARK_AGENT_V2", {"prompt": p, "elapsed_ms": elapsed})
 
     # Summaries
     chat_summary = tracker_chat.get_summary()
-    agent_summary = tracker_agent.get_summary()
+    agent_v1_summary = tracker_agent_v1.get_summary()
+    agent_v2_summary = tracker_agent_v2.get_summary()
 
     print("\n--- Benchmark Results ---")
     print("Chatbot summary:", chat_summary)
-    print("Agent summary:", agent_summary)
-    print("Comparison:", PerformanceTracker.compare(chat_summary, agent_summary))
+    print("Agent v1 summary:", agent_v1_summary)
+    print("Agent v2 summary:", agent_v2_summary)
+    print("Chatbot vs Agent v1:", PerformanceTracker.compare(chat_summary, agent_v1_summary))
+    print("Chatbot vs Agent v2:", PerformanceTracker.compare(chat_summary, agent_v2_summary))
 
 
 if __name__ == '__main__':

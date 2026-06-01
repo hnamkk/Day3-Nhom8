@@ -7,10 +7,7 @@ from src.telemetry.logger import logger
 import src.tools as tools_module
 
 class ReActAgent:
-    """
-    A ReAct-style Agent that follows the Thought-Action-Observation loop.
-    Implemented by TV1.
-    """
+
     
     def __init__(self, llm: LLMProvider, tools: List[Dict[str, Any]], max_steps: int = 5):
         self.llm = llm

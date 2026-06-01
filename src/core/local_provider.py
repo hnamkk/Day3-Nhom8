@@ -3,6 +3,7 @@ import os
 from typing import Dict, Any, Optional, Generator
 from llama_cpp import Llama
 from src.core.llm_provider import LLMProvider
+from src.telemetry.logger import logger
 
 class LocalProvider(LLMProvider):
     """
@@ -22,6 +23,12 @@ class LocalProvider(LLMProvider):
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"Model file not found at {model_path}. Please download it first.")
 
+        logger.log_event(
+            "LOCAL_MODEL_LOAD_START",
+            {"model_path": model_path, "n_ctx": n_ctx, "n_threads": n_threads},
+        )
+        start_time = time.time()
+
         # n_threads=None will use all available cores
         self.llm = Llama(
             model_path=model_path,
@@ -29,8 +36,20 @@ class LocalProvider(LLMProvider):
             n_threads=n_threads,
             verbose=False
         )
+        logger.log_event(
+            "LOCAL_MODEL_LOAD_END",
+            {"model": self.model_name, "latency_ms": int((time.time() - start_time) * 1000)},
+        )
 
     def generate(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
+        logger.log_event(
+            "LOCAL_GENERATE_START",
+            {
+                "model": self.model_name,
+                "prompt_chars": len(prompt or ""),
+                "has_system_prompt": bool(system_prompt),
+            },
+        )
         start_time = time.time()
         
         # Phi-3 / Llama-3 style formatting if not handled by a template
@@ -40,9 +59,10 @@ class LocalProvider(LLMProvider):
         else:
             full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"
 
+        max_tokens = int(os.getenv("LOCAL_MAX_TOKENS", "512"))
         response = self.llm(
             full_prompt,
-            max_tokens=1024,
+            max_tokens=max_tokens,
             stop=["<|end|>", "Observation:"],
             echo=False
         )
@@ -56,6 +76,11 @@ class LocalProvider(LLMProvider):
             "completion_tokens": response["usage"]["completion_tokens"],
             "total_tokens": response["usage"]["total_tokens"]
         }
+
+        logger.log_event(
+            "LOCAL_GENERATE_END",
+            {"model": self.model_name, "latency_ms": latency_ms, "completion_tokens": usage["completion_tokens"]},
+        )
 
         return {
             "content": content,
@@ -71,9 +96,10 @@ class LocalProvider(LLMProvider):
         else:
             full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"
 
+        max_tokens = int(os.getenv("LOCAL_MAX_TOKENS", "512"))
         stream = self.llm(
             full_prompt,
-            max_tokens=1024,
+            max_tokens=max_tokens,
             stop=["<|end|>", "Observation:"],
             stream=True
         )

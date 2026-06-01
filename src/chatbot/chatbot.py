@@ -2,21 +2,7 @@ import os
 from typing import Optional
 
 from src.core.llm_provider import LLMProvider
-
-try:
-    from src.core.openai_provider import OpenAIProvider
-except Exception:
-    OpenAIProvider = None
-
-try:
-    from src.core.gemini_provider import GeminiProvider
-except Exception:
-    GeminiProvider = None
-
-try:
-    from src.core.local_provider import LocalProvider
-except Exception:
-    LocalProvider = None
+from src.core.provider_factory import create_provider
 
 
 class Chatbot:
@@ -27,35 +13,12 @@ class Chatbot:
     """
 
     def __init__(self, provider_name: Optional[str] = None, **kwargs):
-        provider_name = provider_name or os.getenv("LLM_PROVIDER", "openai")
-        provider_name = provider_name.lower()
-
-        if provider_name == "openai" and OpenAIProvider is not None:
-            api_key = kwargs.get("api_key") or os.getenv("OPENAI_API_KEY")
-            self.provider: LLMProvider = OpenAIProvider(api_key=api_key)
-        elif provider_name == "gemini" and GeminiProvider is not None:
-            api_key = kwargs.get("api_key") or os.getenv("GEMINI_API_KEY")
-            self.provider: LLMProvider = GeminiProvider(api_key=api_key)
-        elif provider_name == "local" and LocalProvider is not None:
-            model_path = kwargs.get("model_path") or os.getenv("LOCAL_MODEL_PATH")
-            if not model_path:
-                raise ValueError("LOCAL_MODEL_PATH must be set for local provider")
-            self.provider: LLMProvider = LocalProvider(model_path)
-        else:
-            # Best-effort fallback: try available providers in order
-            if OpenAIProvider is not None:
-                api_key = kwargs.get("api_key") or os.getenv("OPENAI_API_KEY")
-                self.provider = OpenAIProvider(api_key=api_key)
-            elif GeminiProvider is not None:
-                api_key = kwargs.get("api_key") or os.getenv("GEMINI_API_KEY")
-                self.provider = GeminiProvider(api_key=api_key)
-            elif LocalProvider is not None:
-                model_path = kwargs.get("model_path") or os.getenv("LOCAL_MODEL_PATH")
-                if not model_path:
-                    raise ValueError("LOCAL_MODEL_PATH must be set for local provider")
-                self.provider = LocalProvider(model_path)
-            else:
-                raise RuntimeError("No LLM provider available. Install a provider or set env vars.")
+        provider_name = provider_name or os.getenv("LLM_PROVIDER") or os.getenv("DEFAULT_PROVIDER", "openai")
+        self.provider: LLMProvider = create_provider(
+            provider_name=provider_name,
+            model_name=kwargs.get("model_name"),
+            local_model_path=kwargs.get("model_path"),
+        )
 
     def ask(self, user_input: str, system_prompt: Optional[str] = None) -> str:
         """Send single prompt to LLM and return the content string.

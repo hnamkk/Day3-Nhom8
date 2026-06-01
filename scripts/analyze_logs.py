@@ -45,10 +45,14 @@ def analyze_logs(log_dir: str = "logs"):
                     stats["parsing_errors"] += 1
                 if event == "HALLUCINATION_ERROR":
                     stats["hallucination_errors"] += 1
-                if event == "AGENT_END":
+                if event in ("AGENT_END", "AGENT_V2_END"):
                     steps = data.get("steps")
                     if isinstance(steps, int):
                         agent_steps.append(steps)
+                if event == "GUARDRAIL_TRIGGERED":
+                    stats["guardrail_triggers"] += 1
+                if event == "AGENT_V2_RETRY":
+                    stats["agent_v2_retries"] += 1
                 if event == "LLM_METRIC":
                     prov = data.get("provider", "unknown")
                     lat = data.get("latency_ms")
@@ -58,6 +62,8 @@ def analyze_logs(log_dir: str = "logs"):
     print("==== Log Analysis Summary ====")
     print(f"Parsing errors: {stats.get('parsing_errors', 0)}")
     print(f"Hallucination errors: {stats.get('hallucination_errors', 0)}")
+    print(f"Agent v2 retries: {stats.get('agent_v2_retries', 0)}")
+    print(f"Guardrail triggers: {stats.get('guardrail_triggers', 0)}")
 
     if agent_steps:
         avg_steps = sum(agent_steps) / len(agent_steps)
