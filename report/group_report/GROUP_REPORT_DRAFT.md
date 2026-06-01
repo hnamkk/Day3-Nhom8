@@ -1,7 +1,8 @@
 # Group Report: Travel Planner ReAct Agent
 
 - **Team Name**: Nhóm 8
-- **Team Members**: 2A202600884 Đinh Hoàng Nam; 2A202600953 Ngô Minh Khánh; 2A202600895 Bùi Như Kiệt; [Thành viên 4]; [Thành viên 5]
+- **Team Members**: 2A202600884 Đinh Hoàng Nam; 
+2A202600953 Ngô Minh Khánh; 2A202600895 Bùi Như Kiệt; 2A202600716 Cù Tiến Nam ; 2A202600925 Bùi Hoàng Sơn
 - **Deployment Date**: 2026-06-01
 
 ---
