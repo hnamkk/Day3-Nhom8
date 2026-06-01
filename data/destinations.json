@@ -1,0 +1,98 @@
+{
+  "Đà Nẵng": [
+    {
+      "name": "Bãi biển Mỹ Khê",
+      "style": "nghỉ dưỡng",
+      "description": "Bãi biển cát trắng, nước trong, phù hợp tắm biển và thư giãn."
+    },
+    {
+      "name": "Bán đảo Sơn Trà",
+      "style": "khám phá",
+      "description": "Khám phá rừng nguyên sinh, chùa Linh Ứng và nhìn toàn cảnh thành phố."
+    },
+    {
+      "name": "Cầu Rồng",
+      "style": "khám phá",
+      "description": "Biểu tượng thành phố, lý tưởng cho khám phá đêm và chụp ảnh."
+    },
+    {
+      "name": "Chợ Hàn",
+      "style": "ẩm thực",
+      "description": "Thưởng thức hải sản tươi và đặc sản miền Trung."
+    },
+    {
+      "name": "Ngũ Hành Sơn",
+      "style": "khám phá",
+      "description": "Đi bộ khám phá hang động, chùa chiền và quang cảnh tuyệt đẹp."
+    },
+    {
+      "name": "Bà Nà Hills",
+      "style": "nghỉ dưỡng",
+      "description": "Khu du lịch nghỉ dưỡng trên núi với cáp treo và biển mây."
+    }
+  ],
+  "Hà Nội": [
+    {
+      "name": "Phố cổ Hà Nội",
+      "style": "khám phá",
+      "description": "Dạo phố, khám phá kiến trúc cổ và văn hóa đường phố."
+    },
+    {
+      "name": "Hồ Hoàn Kiếm",
+      "style": "nghỉ dưỡng",
+      "description": "Không gian yên bình giữa lòng thủ đô, thích hợp đi bộ buổi sáng."
+    },
+    {
+      "name": "Phở Bát Đàn",
+      "style": "ẩm thực",
+      "description": "Thưởng thức phở truyền thống Hà Nội nổi tiếng."
+    },
+    {
+      "name": "Chùa Một Cột",
+      "style": "khám phá",
+      "description": "Thăm di tích lịch sử và tìm hiểu văn hóa Phật giáo."
+    },
+    {
+      "name": "Quán cà phê Giảng",
+      "style": "ẩm thực",
+      "description": "Trải nghiệm cà phê trứng Hà Nội và không gian cổ kính."
+    },
+    {
+      "name": "Công viên Thống Nhất",
+      "style": "nghỉ dưỡng",
+      "description": "Công viên rộng, phù hợp dạo bộ và nghỉ ngơi."
+    }
+  ],
+  "Hội An": [
+    {
+      "name": "Phố cổ Hội An",
+      "style": "khám phá",
+      "description": "Khám phá các kiến trúc cổ, cửa hàng thủ công và ánh đèn lồng."
+    },
+    {
+      "name": "Cầu Nhật Bản",
+      "style": "khám phá",
+      "description": "Biểu tượng lịch sử nổi tiếng của Hội An."
+    },
+    {
+      "name": "Chợ đêm Hội An",
+      "style": "ẩm thực",
+      "description": "Thưởng thức đặc sản và các món ăn đường phố."
+    },
+    {
+      "name": "An Bàng Beach",
+      "style": "nghỉ dưỡng",
+      "description": "Bãi biển thư giãn với quán nước và không gian yên tĩnh."
+    },
+    {
+      "name": "Ẩm thực Cao Lầu",
+      "style": "ẩm thực",
+      "description": "Thử món Cao Lầu đặc sản địa phương."
+    },
+    {
+      "name": "Làng gốm Thanh Hà",
+      "style": "khám phá",
+      "description": "Thăm xưởng gốm truyền thống và trải nghiệm làm gốm."
+    }
+  ]
+}
